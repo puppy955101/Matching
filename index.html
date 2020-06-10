@@ -10,31 +10,53 @@
 </head>
 <body>
     <div class="container">
-        <h2>#Sellers</h2>
-        <select id="players">
-            <option value="2">2</option>
-            <option value="3" selected>3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-        </select>
-        <h2>Characteristic Function</h2>
-        <div>
-            <div class="characteristic-container">
-                <div class="cell-container">
-                    <div class="cell-top">Sellers</div>
-                    <div class="cell-bottom">Min-price</div>
+        <div class="seller">
+            <h2>#Sellers</h2>
+            <select id="sellers">
+                <option value="2">2</option>
+                <option value="3" selected>3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+            </select>
+            <div>
+                <div class="seller-container">
+                    <div class="cell-container">
+                        <div class="cell-top">Sellers</div>
+                        <div class="cell-bottom">Min-price</div>
+                    </div>
                 </div>
+                <div id="seller" class="seller-container"></div>
             </div>
-            <div id="characteristic" class="characteristic-container"></div>
         </div>
-        <button id="load">Load</button>
-        <button id="random">Random</button>
-        <button id="calculate">Calculate</button>
-        <h2>Matching</h2>
-        <div id="matching" class="matching-container"></div>
+        <div class="buyer">
+            <h2>#Buyers</h2>
+            <select id="buyers">
+                <option value="2">2</option>
+                <option value="3" selected>3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+            </select>
+            <div>
+                <div class="buyer-container">
+                    <div class="cell-container">
+                        <div class="cell-top">Buyers</div>
+                        <div class="cell-bottom">Min-price</div>
+                    </div>
+                </div>
+                <div id="buyer" class="buyer-container"></div>
+            </div>
+        </div>
     </div>
+    <button id="load">Load</button>
+    <button id="random">Random</button>
+    <button id="calculate">Calculate</button>
+    <h2>Matching</h2>
+    <div id="matching" class="matching-container"></div>
 </body>
 </html>
