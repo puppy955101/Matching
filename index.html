@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="container">
-        <div class="seller">
+        <div class="sellers">
             <h2>#Sellers</h2>
             <select id="sellers">
                 <option value="2">2</option>
@@ -21,15 +21,13 @@
                 <option value="7">7</option>
                 <option value="8">8</option>
             </select>
-            <div>
-                <div class="seller-container">
-                    <div class="cell-container">
-                        <div class="cell-top">Sellers</div>
-                        <div class="cell-bottom">Min-price</div>
-                    </div>
+            <div class="seller-container">
+                <div class="cell-container">
+                    <div class="cell-top">Sellers</div>
+                    <div class="cell-bottom">Min-price</div>
                 </div>
-                <div id="seller" class="seller-container"></div>
             </div>
+            <div id="seller" class="seller-container"></div>
         </div>
         <div class="buyer">
             <h2>#Buyers</h2>
@@ -42,21 +40,21 @@
                 <option value="7">7</option>
                 <option value="8">8</option>
             </select>
-            <div>
-                <div class="buyer-container">
-                    <div class="cell-container">
-                        <div class="cell-top">Buyers</div>
-                        <div class="cell-bottom">Min-price</div>
-                    </div>
+            <div class="buyer-container">
+                <div class="cell-container">
+                    <div class="cell-top">Buyers</div>
+                    <div class="cell-bottom">Max-price</div>
                 </div>
-                <div id="buyer" class="buyer-container"></div>
             </div>
+            <div id="buyer" class="buyer-container"></div>
         </div>
     </div>
-    <button id="load">Load</button>
-    <button id="random">Random</button>
-    <button id="calculate">Calculate</button>
-    <h2>Matching</h2>
-    <div id="matching" class="matching-container"></div>
+    <div class="result">
+        <button id="testcase">Testcase1</button>
+        <button id="random">Random</button>
+        <button id="calculate">Calculate</button>
+        <h2>Matching</h2>
+        <div id="matching" class="matching-container"></div>
+    </div>
 </body>
 </html>

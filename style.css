@@ -8,7 +8,7 @@ button, select {
     margin: 5px;
 }
 
-.seller {
+.sellers {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -20,11 +20,20 @@ button, select {
     align-items: flex-start;
     margin: 0 auto;
 }
-.container {
+.container , .result{
     display: flex;
 }
-
-.seller-container {
+.result {
+    align-items: center;
+    flex-direction: column;
+}
+#matching {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+}
+.seller-container, .buyer-container {
     margin-bottom: 20px;
     width: 100%;
     display: flex;
@@ -32,7 +41,7 @@ button, select {
     align-items: center;
 }
 
-.seller-container {
+.seller-container, .buyer-container {
     flex-wrap: wrap;
     justify-content: center;
 }
@@ -50,19 +59,21 @@ button, select {
     display: inline-flex;
     flex-direction: column;
 }
-
-.cell-top, .cell-bottom {
+.cell-top, .cell-bottom, .cell-left, .cell-right, .cell-space {
     width: 75px;
     text-align: center;
     padding: 5px;
     border-right: white 2px solid;
-    height: 100%;
+    height: 18px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-
-.cell-top {
+.cell-space {
+    background-color: white;
+    border-bottom: white 3px solid;
+}
+.cell-top, .cell-left, .cell-right{
     background-color: rgb(85, 145, 199);
     color: white;
     border-bottom: white 3px solid;
@@ -70,7 +81,7 @@ button, select {
 
 .cell-bottom {
     background-color: rgb(210, 222, 239);
-    border-bottom: white 2px solid;
+    border-bottom: white 3px solid;
 }
 
 .cell-bottom > input {
