@@ -9,10 +9,20 @@ $(function () {
         combinations(Array.apply(undefined, Array(parseInt($('#sellers :selected').val()))).map(function (x, y) { return String.fromCharCode(y + 65); }).join('')).sort(function (a, b) { return a.length - b.length || a.localeCompare(b) }).forEach(element => $('#seller').append(`<div class="sellercell-container"><div class="cell-top">${element}</div><div class="cell-bottom"><input id="${element}" type="number" value="0"></div></div>`));
         $('#seller').width(90 * parseInt($('#sellers :selected').val()));
         $('#buyers').trigger('change');
+        $('#seller-capacity').html('<option value = "1" selected > 1</option >');
+        for (var i = 2; i < 10.0 / parseInt($('#sellers :selected').val()); i++) {
+            element = '<option value = "' + String(i) + '">' + String(i) + '</option>';
+            $('#seller-capacity').append(element);
+        }
     });
     $('#buyers').on('change', function (event) {
         $('#buyer').html('');
         $('#matching').html('');
+        $('#buyer-capacity').html('<option value = "1" selected > 1</option >');
+        for (var i = 2; i < 10.0 / parseInt($('#buyers :selected').val()); i++) {
+            element = '<option value = "' + String(i) + '">' + String(i) + '</option>';
+            $('#buyer-capacity').append(element);
+        }
         Buyer(parseInt($('#sellers :selected').val()), parseInt($('#buyers :selected').val()));
     });
     $('#random').on('click', function (event) {
@@ -64,6 +74,8 @@ $(function () {
         use = [];
         Max = -1;
         buyer = [];
+        mcapacity = parseInt($('#seller-capacity :selected').val());
+        ncapacity = parseInt($('#buyer-capacity :selected').val());
         rec();
         x = $('.buyercell-container').toArray();
         for (var i = 1; i < x.length; i++) {
@@ -107,30 +119,44 @@ $(function () {
 function result() {
     b = parseInt($('#buyers :selected').val());
     $('#matching').append('<div class="result-container"></div>');
-    for (var i = 0; i < b; i++) {
+    for (var i = 0; i < ans.length; i++) {
+        element = "";
+        for (var j = 0; j < a; j++) {
+            if (j != ans[i%b]) {
+                element = "#" + String.fromCharCode(j + 65) + String.fromCharCode(i + 73);
+                $(element).css('color', 'black');
+            }
+        }
         element = "";
         if (ans[i] != -1) {
-            element = "#" + String.fromCharCode(ans[i] + 65) + String.fromCharCode(i + 73);
+            element = "#" + String.fromCharCode(ans[i] + 65) + String.fromCharCode(i%b + 73);
             $(element).css('color', 'red');
-            element = String(buyer[i * seller.length + ans[i]]) + ' - ' + String(seller[ans[i]]) + ' = ' + String(buyer[i * seller.length + ans[i]] - seller[ans[i]]);
+            element = String(buyer[(i%b) * seller.length + ans[i]]) + ' - ' + String(seller[ans[i]]) + ' = ' + String(buyer[(i%b) * seller.length + ans[i]] - seller[ans[i]]);
         }
-        $('.result-container').last().append('<div class="cell-bottom">' + element + '</div>');
+        //if (i < b) {
+            $('.result-container').last().append('<div class="cell-bottom">' + element + '</div>');
+        //}
     }
+    dx = $('.result-container').last().height();
     $('#matching').append('<div class="result-container"></div>');
     $('.result-container').last().append('<div class="cell-top">Total</div>');
     $('.cell-top').last().width($('.cell-bottom').last().width())
     element = String(Max);
     $('.result-container').last().append('<div class="cell-bottom">' + element + '</div>');
-    $('.result-container').last().height($('.result-container').first().height());
-    $('.cell-bottom').last().height($('.result-container').first().height() - $('.cell-top').last().height()-26);
+    $('.result-container').last().height(max($('.result-container').first().height(), dx));
+    $('.cell-bottom').last().height(max($('.result-container').first().height(),dx) - $('.cell-top').last().height()-26);
+}
+function max(a, b) {
+    if (a > b) return a;
+    return b;
 }
 function DFS(buyer, seller, pos) {
     if (pos == tmp.length) {
         var re = total(buyer, seller);
-        if (Max < re) {
+        if (Max <= re) {
             //alert(String(Max));
            // alert(String(re));
-        //    alert(String(ans));
+            //alert(String(ans));
           //  alert(String(tmp));
             Max = re;
             for (var i = 0; i < tmp.length; i++) {
@@ -142,11 +168,11 @@ function DFS(buyer, seller, pos) {
     tmp[pos] = -1;
     DFS(buyer, seller, pos + 1);
     for (var i = 0; i < seller.length; i++) {
-        if (use[i] == 0) {
-            use[i] = 1;
+        if (use[i] < mcapacity) {
+            use[i] += 1;
             tmp[pos] = i;
             DFS(buyer, seller, pos + 1);
-            use[i] = 0;
+            use[i] -= 1;
         }
     }
     return;
@@ -155,7 +181,7 @@ function total(buyer, seller) {
     var re = 0;
     for (var i = 0; i < tmp.length; i++) {
         if (tmp[i] != -1)
-            re += buyer[i * seller.length + tmp[i]] - seller[tmp[i]];
+            re += buyer[(i%b) * seller.length + tmp[i]] - seller[tmp[i]];
     }
     return re;
 }
@@ -206,9 +232,11 @@ function rec() {
         $('.result-container').last().append('<div class="cell-space"></div>');
     }
     $('#matching').append('<div class="result-container"></div>');
-    for (var i = 0; i < b; i++) {
-        element = String.fromCharCode(i + 73);
+    for (var i = 0; i < ncapacity * b; i++) {
+        element = String.fromCharCode(i%b + 73);
         $('.result-container').last().append('<div class="cell-right">' + element + '</div>');
+    }
+    for (var i = 0; i < ncapacity*b; i++) {
         tmp.push(0);
         ans.push(-1);
     }
